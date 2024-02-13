@@ -7,6 +7,7 @@ function ProductInfo() {
     const {id,colorId} = useParams();
     const [colorItem,setColorItem] = useState({sizes:[],images:[]})
     const [sizes,setSizes] = useState([{id:Number, label: '', number: Number}])
+    const [choosenSize, setChoosenSize] = useState(1)
     useEffect(() => {
         getProductColor(id, colorId).then(
             res => {
@@ -21,8 +22,17 @@ function ProductInfo() {
         )
     },[id,colorId])
 
+    const chooseSize = (event) => {
+        setChoosenSize(event.target.getAttribute('data-sizeid'))
+        console.log(choosenSize)
+    }
+
     function ShowSize(size){
-        if(colorItem.sizes.includes(size.id)) return <div>
+        if(colorItem.sizes.includes(size.id)) return <div
+            data-sizeid={size.id}
+            onClick={chooseSize}
+            className={choosenSize === size.id? 'size_active': 'size'}
+        >
             {size.label} {size.number}
         </div>
     }
@@ -43,11 +53,9 @@ function ProductInfo() {
             <div className={'products--info__price'}>
                 Цена {colorItem.price}
             </div>
-            <div className={'products--sizes'}>
+            <div className={'products--info__sizes'}>
                 {sizes.map((size) => ShowSize(size))}
             </div>
-
-
         </div>
     )
 }

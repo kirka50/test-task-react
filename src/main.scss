@@ -23,4 +23,12 @@ html, body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  &__sizes {
+    .size_active {
+      font-size: 50px;
+    }
+    .size {
+      color: gray;
+    }
+  }
 }
