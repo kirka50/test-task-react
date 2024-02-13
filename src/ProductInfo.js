@@ -1,27 +1,36 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getProduct, getProductColor} from "./services/api";
+import {getProduct, getProductColor, getSizes} from "./services/api";
 
 
 function ProductInfo() {
     const {id,colorId} = useParams();
-    const [colorItem,setColorItem] = useState({})
-    const [colorImages, setColorImages] = useState([])
+    const [colorItem,setColorItem] = useState({sizes:[],images:[]})
+    const [sizes,setSizes] = useState([{id:Number, label: '', number: Number}])
     useEffect(() => {
         getProductColor(id, colorId).then(
             res => {
                 console.log(res)
                 setColorItem(res)
-                setColorImages(res.images)
             }
         ).catch(err => console.log(err))
-    },[id])
+        getSizes().then(
+            res => {
+                setSizes(res)
+            }
+        )
+    },[id,colorId])
 
+    function ShowSize(size){
+        if(colorItem.sizes.includes(size.id)) return <div>
+            {size.label} {size.number}
+        </div>
+    }
 
     return (
         <div className={'product--info'}>
             <div className={'product--info__images'}>
-                {colorImages.map(imageUrl =>
+                {colorItem.images.map(imageUrl =>
                     <img key={imageUrl} src={imageUrl} width={'300'} height={'300'}/>
                 )}
             </div>
@@ -31,6 +40,13 @@ function ProductInfo() {
             <div className={'products--info__description'}>
                 {colorItem.description}
             </div>
+            <div className={'products--info__price'}>
+                Цена {colorItem.price}
+            </div>
+            <div className={'products--sizes'}>
+                {sizes.map((size) => ShowSize(size))}
+            </div>
+
 
         </div>
     )
