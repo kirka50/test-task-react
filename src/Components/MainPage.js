@@ -1,5 +1,4 @@
 import {useContext, useEffect, useState} from "react";
-import {getProducts} from "../services/api";
 import {Link, Outlet} from "react-router-dom";
 import CartIcon from "./Cart/CartIcon";
 import {Context} from "../context";

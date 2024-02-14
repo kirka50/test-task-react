@@ -1,5 +1,4 @@
-import {useContext, useEffect, useState} from "react";
-import {Context} from "../../context";
+import {useEffect, useState} from "react";
 import {getProducts} from "../../services/api";
 import {Link} from "react-router-dom";
 

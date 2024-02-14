@@ -23,6 +23,10 @@ html, body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  &__images {
+    display: flex;
+    justify-content: center;
+  }
   &__color {
     display: flex;
     gap: 10px;
@@ -55,9 +59,14 @@ html, body {
   justify-content: center;
   height: 100vh;
   align-items: center;
+  flex-wrap: wrap;
   .cart--item {
     display: flex;
     flex-direction: column;
     text-align: center;
   }
+}
+
+.image-slider {
+  display: flex;
 }

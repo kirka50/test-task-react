@@ -1,3 +1,4 @@
+/*
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getProduct} from "../../services/api";
@@ -30,4 +31,4 @@ function ProductPage() {
     )
 }
 
-export default ProductPage
+export default ProductPage*/
