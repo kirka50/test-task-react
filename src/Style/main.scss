@@ -23,6 +23,11 @@ html, body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  &__color {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
   &__sizes {
     display: flex;
     gap: 10px;

@@ -5,16 +5,17 @@ import {Context} from "../../context";
 import {createItem} from "../Cart/cartHandler";
 
 function ProductInfo() {
-    const {id,colorId} = useParams();
+    const {id} = useParams();
     const [colorItem,setColorItem] = useState({sizes:[],images:[]})
     const [sizes,setSizes] = useState([{id:Number, label: '', number: Number}])
     const [chosenSize, setChosenSize] = useState(0)
     const {addItem} = useContext(Context)
-    const [item,setItem] = useState({})
+    const [item,setItem] = useState({colors:[{id: Number, name: String}]})
+    const [selectedColor, setSelectedColor] = useState(1)
 
 
     useEffect(() => {
-        getProductColor(id, colorId).then(
+        getProductColor(id, selectedColor).then(
             res => {
                 console.log(res)
                 setColorItem(res)
@@ -30,7 +31,16 @@ function ProductInfo() {
                 setItem(res)
             }
         )
-    },[id,colorId])
+    },[])
+    useEffect(() => {
+        getProductColor(id, selectedColor).then(
+            res => {
+                console.log(res)
+                setColorItem(res)
+                setChosenSize(0)
+            }
+        ).catch(err => console.log(err))
+    },[selectedColor])
 
     function ShowSize({size}){
         if(colorItem.sizes.includes(size.id)) {
@@ -51,12 +61,24 @@ function ProductInfo() {
         }
     }
 
-    function handleClick() {
+    function ShowColor({color}) {
+        return <div data-colorid={color.id} onClick={selectColor}
+        style={{border: selectedColor == color.id ? 'solid 4px red' : 'white',
+            borderRadius: '10px',}}>
+            {color.name}
+        </div>
+
+    }
+    function handleButtonClick() {
         addItem(createItem(item,colorItem,chosenSize))
     }
 
     const chooseSize = (event) => {
         setChosenSize(event.target.getAttribute('data-sizeid'))
+    }
+
+    const selectColor = (event) => {
+        setSelectedColor(event.target.getAttribute('data-colorid'))
     }
 
 
@@ -67,8 +89,8 @@ function ProductInfo() {
                     <img key={index} src={imageUrl} width={'300'} height={'300'}/>
                 )}
             </div>
-            <div className={'product--info__title'}>
-                {colorItem.name}
+            <div className={'product--info__color'}>
+                {item.colors.map(color => <ShowColor color={color}/>)}
             </div>
             <div className={'product--info__description'}>
                 {colorItem.description}
@@ -80,7 +102,7 @@ function ProductInfo() {
                 {sizes.map((size) => <ShowSize key={size.id} size={size} />)}
             </div>
             <div className={'product--info__cart-button'}>
-                <button disabled={chosenSize == 0} onClick={handleClick}> В корзину </button>
+                <button disabled={chosenSize == 0} onClick={handleButtonClick}> В корзину </button>
             </div>
         </div>
     )

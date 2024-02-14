@@ -16,10 +16,6 @@ const Router =createBrowserRouter([
             },
             {
                 path: '/product/:id',
-                element: <ProductPage />,
-            },
-            {
-                path: '/product/:id/:colorId',
                 element: <ProductInfo />
             },
         ]

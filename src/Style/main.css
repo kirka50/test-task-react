@@ -23,6 +23,11 @@ html, body {
   flex-direction: column;
   text-align: center;
 }
+.product--info__color {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
 .product--info__sizes {
   display: flex;
   gap: 10px;
