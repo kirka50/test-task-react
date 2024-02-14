@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getProduct} from "./services/api";
+import {getProduct} from "../../services/api";
 
 
 function ProductPage() {
@@ -18,7 +18,7 @@ function ProductPage() {
     },[])
 
     const listProductColors = productColors.map(productColor =>
-        <Link className={'products__item'} to={`/product/${id}/${productColor.id}`}>
+        <Link key={productColor.name} className={'products__item'} to={`/product/${id}/${productColor.id}`}>
             <img src={productColor.images[0]} width={'300'} height={'300'} />
             {`${product.name} ${productColor.name}`}
         </Link>)

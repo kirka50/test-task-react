@@ -1,25 +1,23 @@
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 
-function CartIcon() {
+function CartIcon({cartItems}) {
 
-    const [itemsCount,setItemsCount] = useState()
-    useEffect(() => {
-        setItemsCount(JSON.parse(localStorage))
-    })
 
 
 
     return(
         <div>
+
             <div className={'cart-section__icon'}>
-                Корзина: 0
+                Корзина:
             </div>
             <div className={'cart-section__count'}>
-                {{}}
+                {cartItems.length}
             </div>
         </div>
     )
 }
 
-export default CartIcon
+export default CartIcon;
