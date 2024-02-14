@@ -23,5 +23,22 @@ html, body {
   flex-direction: column;
   text-align: center;
 }
+.product--info__sizes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  font-size: 28px;
+}
+.product--info__sizes .size {
+  cursor: pointer;
+}
+.product--info__sizes .size_inactive {
+  color: gray;
+  cursor: default;
+}
+.product--info__cart-button button {
+  height: 50px;
+  width: 200px;
+}
 
 /*# sourceMappingURL=main.css.map */

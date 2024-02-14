@@ -20,9 +20,18 @@ function MainPage() {
 
 
     return (
-        <div className="products">
-            {listItems}
-        </div>
+
+            <div>
+                <div className={'header'}>
+                    <div className={'header__cart-section'}>
+
+                    </div>
+                </div>
+                <div className="products">
+                    {listItems}
+                </div>
+            </div>
+
     );
 }
 

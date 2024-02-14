@@ -7,7 +7,7 @@ function ProductInfo() {
     const {id,colorId} = useParams();
     const [colorItem,setColorItem] = useState({sizes:[],images:[]})
     const [sizes,setSizes] = useState([{id:Number, label: '', number: Number}])
-    const [choosenSize, setChoosenSize] = useState(1)
+    const [chosenSize, setChosenSize] = useState(1)
     useEffect(() => {
         getProductColor(id, colorId).then(
             res => {
@@ -23,18 +23,29 @@ function ProductInfo() {
     },[id,colorId])
 
     const chooseSize = (event) => {
-        setChoosenSize(event.target.getAttribute('data-sizeid'))
-        console.log(choosenSize)
+        setChosenSize(event.target.getAttribute('data-sizeid'))
+        console.log(event.target.getAttribute('data-sizeid'))
     }
 
     function ShowSize(size){
-        if(colorItem.sizes.includes(size.id)) return <div
-            data-sizeid={size.id}
-            onClick={chooseSize}
-            className={choosenSize === size.id? 'size_active': 'size'}
-        >
-            {size.label} {size.number}
-        </div>
+        if(colorItem.sizes.includes(size.id)) {
+            return <div
+                data-sizeid={size.id}
+                onClick={chooseSize}
+                style={{border: chosenSize == size.id ? 'solid 4px red' : 'white',
+                borderRadius: '10px',}}
+                className={'size'}
+            >
+                {size.label} {size.number}
+            </div>
+        } else {
+            return <div
+                data-sizeid={size.id}
+                className={'size_inactive'}
+            >
+                {size.label} {size.number}
+            </div>
+        }
     }
 
     return (
@@ -44,17 +55,20 @@ function ProductInfo() {
                     <img key={imageUrl} src={imageUrl} width={'300'} height={'300'}/>
                 )}
             </div>
-            <div className={'products--info__title'}>
+            <div className={'product--info__title'}>
                 {colorItem.name}
             </div>
-            <div className={'products--info__description'}>
+            <div className={'product--info__description'}>
                 {colorItem.description}
             </div>
-            <div className={'products--info__price'}>
+            <div className={'product--info__price'}>
                 Цена {colorItem.price}
             </div>
-            <div className={'products--info__sizes'}>
+            <div className={'product--info__sizes'}>
                 {sizes.map((size) => ShowSize(size))}
+            </div>
+            <div className={'product--info__cart-button'}>
+                <button> В корзину </button>
             </div>
         </div>
     )
