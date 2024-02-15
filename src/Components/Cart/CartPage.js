@@ -1,11 +1,12 @@
 import {useContext, useEffect, useState} from "react";
 import {Context} from "../../context";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {getSizes} from "../../services/api";
 
 
 
 function CartPage() {
+    const navigate = useNavigate()
     const [sizes, setSizes] = useState([{id:Number,label:String,number:Number}])
     useEffect(() => {
         getSizes().then(
@@ -33,16 +34,20 @@ function CartPage() {
         removeItem(itemId,colorId,size)
     }
 
+    const goBack = () => navigate(-1)
+
 
 
 
     if (cartItems.length > 0) {
         return(
             <div className={'cart--page'}>
-                {listItems}
+                <button onClick={goBack}> Назад </button>
+                    {listItems}
             </div>)
     }
     return <div className={'cart--page'}>
+        <button onClick={goBack}> Назад </button>
         Ваша корзина пуста
     </div>
 

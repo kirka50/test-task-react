@@ -8,6 +8,12 @@ html, body {
   padding: 0;
 }
 
+.header {
+  display: flex;
+  margin: 5px 200px;
+  justify-content: flex-end;
+}
+
 .products {
   display: flex;
   justify-content: center;
